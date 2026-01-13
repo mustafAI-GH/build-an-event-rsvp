@@ -1,1 +1,6 @@
-# build-an-event-rsvp
+## 🧠 About This Project
+
+I created this project as part of the [FreeCodeCamp](https://www.freecodecamp.org) program — **Build an Event RSVP**. 
+I used JSX to complete it.
+
+Next step.. ⏳
