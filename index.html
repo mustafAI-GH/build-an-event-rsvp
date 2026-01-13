@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event RSVP</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.5/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function EventRSVPForm() {
+      const [name, setName] = useState('');
+      const [email, setEmail] = useState('');
+      const [number, setNumber] = useState(1);
+      const [diet, setDiet] = useState('');
+      const [extraGuests, setExtraGuests] = useState(false);
+      const [confirmation, setConfirmation] = useState('');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const message = `
+RSVP Submitted!
+Name: ${name}
+Email: ${email}
+Number of attendees: ${number}
+Dietary preferences: ${diet || "none"}
+Bringing additional guests: ${extraGuests ? "Yes" : "No"}
+        `;
+
+        setConfirmation(message);
+      };
+
+      return (
+        <div>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your Name"
+                required
+              />
+            </label>
+
+            <label>
+              Email:
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your Email"
+                required
+              />
+            </label>
+
+            <label>
+              Number of Attendees:
+              <input
+                type="number"
+                min="1"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+                required
+              />
+            </label>
+
+            <label>
+              Dietary Preferences:
+              <input
+                type="text"
+                value={diet}
+                onChange={(e) => setDiet(e.target.value)}
+                placeholder="Dietary Preferences (Optional)"
+              />
+            </label>
+
+            <label>
+              Bringing additional guests?
+              <input
+                type="checkbox"
+                checked={extraGuests}
+                onChange={(e) => setExtraGuests(e.target.checked)}
+              />
+            </label>
+
+            <button type="submit">Submit</button>
+          </form>
+
+          {confirmation && (
+            <div id="confirmation" style={{ whiteSpace: "pre-line", marginTop: "20px" }}>
+              {confirmation}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<EventRSVPForm />);
+  </script>
+</body>
+</html>
